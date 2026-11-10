@@ -130,13 +130,11 @@ router.post('/register/hotel', [
 //  POST /api/auth/login
 //  Connexion universelle (client + hotel + superadmin)
 // ============================================================
-router.post('/login', [
-    body('email').isEmail().withMessage('Email invalide').normalizeEmail(),
-    body('password').notEmpty().withMessage('Mot de passe requis'),
-], validate, async (req, res) => {
+router.post('/login', validate, async (req, res) => {
     try {
-        const { email: mail, password } = req.body;
+        const { email:mail, password } = req.body;
 
+        console.log(req.body || null)
         const user = await User.findOne({ email: mail }).select('+password');
         if (!user) {
             return res.status(401).json({ success: false, message: 'Email ou mot de passe incorrect.' });

@@ -16,17 +16,46 @@ export default function LoginForm({ justRegistered }: { justRegistered?: "client
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  async function submit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const f = new FormData(e.currentTarget);
-    setErrors({}); setError(""); setLoading(true);
-    try {
-      const r = await api<{ token: string; user: SessionUser }>("/auth/login", { email: f.get("email"), password: f.get("password") });
-      saveSession(r.token, r.user, !!f.get("remember"));
-      router.push(homeFor(r.user.role));
-    } catch (err) { const a = err as ApiError; setErrors(a.fields ?? {}); setError(a.message); }
-    finally { setLoading(false); }
+ 
+async function submit(e: FormEvent<HTMLFormElement>) {
+  e.preventDefault();
+
+  const formData = new FormData(e.currentTarget);
+
+  const email = String(formData.get("email") ?? "").trim();
+  const password = String(formData.get("password") ?? "");
+  const remember = formData.get("remember") === "on";
+
+  console.log("Email récupéré :", email);
+  console.log("Mot de passe renseigné :", password.length > 0);
+
+  setErrors({});
+  setError("");
+
+  if (!email || !password) {
+    setError("Veuillez renseigner votre e-mail et votre mot de passe.");
+    return;
   }
+
+  setLoading(true);
+
+  try {
+    const r = await api<{ token: string; user: SessionUser }>(
+      "/auth/login",
+      { email, password }
+    );
+
+    saveSession(r.token, r.user, remember);
+    router.push(homeFor(r.user.role));
+  } catch (err) {
+    const a = err as ApiError;
+    setErrors(a.fields ?? {});
+    setError(a.message);
+  } finally {
+    setLoading(false);
+  }
+}
+
 
   const ph = "identifiant@exemple.ml";
 
