@@ -5,6 +5,7 @@ import { UserRound, BadgeCheck } from "lucide-react";
 import { api } from "@/lib/api";
 import { clearSession } from "@/lib/session";
 import Logo from "@/components/Logo";
+import LanguageSwitcher from "@/i18n/LanguageSwitcher";
 
 export default function ClientHeader() {
   const router = useRouter();
@@ -21,6 +22,7 @@ export default function ClientHeader() {
           </span>
         </div>
         <nav className="flex items-center gap-1 text-xs font-medium" aria-label="Espace voyageur">
+          <LanguageSwitcher className= "mr-1"/>
           <Link href="/client" className="rounded-lg bg-leaf px-3 py-1.5 font-bold text-mali">Accueil</Link>
           <Link href="/client/fiche/nouvelle" className="hidden rounded-lg px-3 py-1.5 text-muted hover:text-mali sm:block">Nouvelle fiche</Link>
           <Link href="/faq" className="hidden rounded-lg px-3 py-1.5 text-muted hover:text-mali sm:block">Aide</Link>

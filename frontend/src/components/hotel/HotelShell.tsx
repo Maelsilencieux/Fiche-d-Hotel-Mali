@@ -6,6 +6,7 @@ import { LayoutGrid, Inbox, Users, FileText, SlidersHorizontal, Bell, Radio } fr
 import { api } from "@/lib/api";
 import { SUPPORT } from "@/lib/config";
 import { clearSession, getUser, type SessionUser } from "@/lib/session";
+import LanguageSwitcher from "@/i18n/LanguageSwitcher";
 import AppShell, { type NavItem } from "@/components/shell/AppShell";
 
 const nav: NavItem[] = [
@@ -32,6 +33,7 @@ export default function HotelShell({ children }: { children: React.ReactNode }) 
           <div className="min-w-0"><p className="truncate font-display text-lg font-bold text-mali-deep">{user?.nomHotel ?? "Mon établissement"}</p>
             <p className="flex flex-wrap items-center gap-2 font-mono text-[9px] text-muted">{user?.rccm ? `RCCM ${user.rccm} · ` : ""}{user?.villeHotel ? `${user.villeHotel}, ` : ""}Mali <span className="flex items-center gap-1.5 rounded-full bg-leaf px-2 py-0.5 font-semibold text-mali"><Radio size={9} /> LIAISON ACTIVE</span></p></div>
           <div className="flex items-center gap-4">
+            <LanguageSwitcher />
             <Link href="/hotel/demandes" aria-label={`${unread} notification(s)`} className="relative text-muted hover:text-mali"><Bell size={18} />{unread > 0 && <span className="absolute -right-2 -top-2 grid h-4 min-w-4 place-items-center rounded-full bg-rouge px-1 text-[9px] font-bold text-white">{unread}</span>}</Link>
             <div className="hidden text-right leading-tight sm:block"><p className="text-[11px] font-bold text-mali-deep">Compte établissement</p><p className="font-mono text-[9px] text-muted">ID-ML-{(user?._id ?? "0000").slice(-4).toUpperCase()}</p></div>
             <span className="grid h-9 w-9 place-items-center rounded-xl bg-mali text-sm font-bold text-white">{(user?.nomHotel ?? "H")[0]}</span>

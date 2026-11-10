@@ -4,6 +4,7 @@ import { useRouter, usePathname } from "next/navigation";
 import { LayoutGrid, Building2, ClipboardList, Users, FileText, SlidersHorizontal, Bell, ChevronDown, UserRound, MapPinned } from "lucide-react";
 import { api } from "@/lib/api";
 import { clearSession, getUser, type SessionUser } from "@/lib/session";
+import LanguageSwitcher from "@/i18n/LanguageSwitcher";
 import AppShell, { type NavItem } from "@/components/shell/AppShell";
 
 const nav: NavItem[] = [
@@ -36,6 +37,7 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
         <div className="flex flex-wrap items-center justify-between gap-3">
           <p className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-wide text-muted"><i className={`h-2 w-2 rounded-full ${online === false ? "bg-rouge" : "bg-ok"}`} />République du Mali · Supervision nationale</p>
           <div className="flex items-center gap-4">
+            <LanguageSwitcher />
             <span className={`hidden items-center gap-2 rounded-full px-3 py-1.5 font-mono text-[10px] lg:flex ${online === false ? "bg-red-50 text-rouge" : "bg-leaf text-mali"}`}><i className={`h-1.5 w-1.5 rounded-full ${online === false ? "bg-rouge" : "bg-ok"}`} />{online === false ? "Plateforme indisponible" : "Synchronisation active"}</span>
             {latency !== null && <span className="hidden font-mono text-[10px] text-muted xl:block">Base : {latency} ms</span>}
             <span className="relative text-muted" aria-label={`${unread} notification(s)`}><Bell size={18} />{unread > 0 && <i className="absolute -right-1 -top-1 h-2.5 w-2.5 rounded-full bg-rouge ring-2 ring-white" />}</span>

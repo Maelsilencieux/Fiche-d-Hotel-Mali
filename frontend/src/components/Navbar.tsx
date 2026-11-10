@@ -3,6 +3,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { LogIn, UserPlus } from "lucide-react";
 import Logo from "./Logo";
+import LanguageSwitcher from "@/i18n/LanguageSwitcher";
 
 const links = [
   { href: "/", label: "Accueil" },
@@ -30,6 +31,7 @@ export default function Navbar() {
         </nav>
 
         <div className="flex items-center gap-2">
+          <LanguageSwitcher className="hidden sm:flex" />
           <Link href="/connexion" aria-current={path.startsWith("/connexion") ? "page" : undefined}
             className="flex items-center gap-1.5 rounded-xl bg-mali px-4 py-2.5 text-xs font-semibold text-white shadow-sm hover:bg-mali-deep">
             <LogIn size={14} /> Se connecter
@@ -46,6 +48,7 @@ export default function Navbar() {
         {links.map((l) => (
           <Link key={l.href} href={l.href} className={linkCls(l.href)}>{l.label}</Link>
         ))}
+        <LanguageSwitcher className="sm:hidden" />
       </nav>
     </header>
   );

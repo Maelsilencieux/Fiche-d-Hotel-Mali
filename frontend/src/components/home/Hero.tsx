@@ -47,7 +47,7 @@ export default function Hero() {
             {[
               { i: UserCheck, t: "Le voyageur remplit sa fiche", s: "Identité, séjour, pièce d’identité (PDF)", c: "bg-[#14B53A]/15 text-mali" },
               { i: CheckCircle2, t: "L’hôtel vérifie et valide", s: "Contrôle de la pièce originale à l’accueil", c: "bg-gold/30 text-amber-900" },
-              { i: Send, t: "Lot scellé et transmis", s: "Empreinte SHA-256 avant l’heure de clôture", c: "bg-rouge/10 text-rouge" },
+              { i: Send, t: "Lot scellé et transmis", s: " avant l’heure de clôture", c: "bg-rouge/10 text-rouge" },
             ].map(({ i: I, t, s, c }, n) => (
               <li key={t} className="flex items-center gap-3 rounded-2xl border border-line p-3">
                 <span className={`grid h-11 w-11 shrink-0 place-items-center rounded-xl ${c}`}><I size={20} /></span>
